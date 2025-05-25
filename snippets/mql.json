@@ -1,0 +1,394 @@
+{
+    "Expert Advisor Template": {
+        "prefix": "ea-template",
+        "body": [
+            "//+------------------------------------------------------------------+",
+            "//|                                                     ${1:ExpertName}.mq${2|4,5|} |",
+            "//|                        Copyright ${CURRENT_YEAR}, ${3:Your Name} |",
+            "//|                                             ${4:your-website.com} |",
+            "//+------------------------------------------------------------------+",
+            "#property copyright \"${3:Your Name}\"",
+            "#property link      \"${4:your-website.com}\"",
+            "#property version   \"1.00\"",
+            "#property strict",
+            "",
+            "//--- input parameters",
+            "input double   Lots = 0.1;        // Lot size",
+            "input int      MagicNumber = 12345; // Magic number",
+            "input int      Slippage = 3;       // Slippage",
+            "",
+            "//+------------------------------------------------------------------+",
+            "//| Expert initialization function                                   |",
+            "//+------------------------------------------------------------------+",
+            "int OnInit()",
+            "{",
+            "   //--- initialization code here",
+            "   ${5:// Add your initialization code}",
+            "   return(INIT_SUCCEEDED);",
+            "}",
+            "",
+            "//+------------------------------------------------------------------+",
+            "//| Expert deinitialization function                                 |",
+            "//+------------------------------------------------------------------+",
+            "void OnDeinit(const int reason)",
+            "{",
+            "   //--- cleanup code here",
+            "   ${6:// Add your cleanup code}",
+            "}",
+            "",
+            "//+------------------------------------------------------------------+",
+            "//| Expert tick function                                             |",
+            "//+------------------------------------------------------------------+",
+            "void OnTick()",
+            "{",
+            "   //--- main trading logic here",
+            "   ${7:// Add your trading logic}",
+            "}",
+            "$0"
+        ],
+        "description": "Expert Advisor template with basic structure"
+    },
+    "Indicator Template": {
+        "prefix": "indicator-template",
+        "body": [
+            "//+------------------------------------------------------------------+",
+            "//|                                                ${1:IndicatorName}.mq${2|4,5|} |",
+            "//|                        Copyright ${CURRENT_YEAR}, ${3:Your Name} |",
+            "//|                                             ${4:your-website.com} |",
+            "//+------------------------------------------------------------------+",
+            "#property copyright \"${3:Your Name}\"",
+            "#property link      \"${4:your-website.com}\"",
+            "#property version   \"1.00\"",
+            "#property strict",
+            "#property indicator_chart_window",
+            "#property indicator_buffers 1",
+            "#property indicator_plots   1",
+            "//--- plot ${5:PlotName}",
+            "#property indicator_label1  \"${5:PlotName}\"",
+            "#property indicator_type1   DRAW_LINE",
+            "#property indicator_color1  clrRed",
+            "#property indicator_style1  STYLE_SOLID",
+            "#property indicator_width1  1",
+            "",
+            "//--- input parameters",
+            "input int      ${6:Period} = 14;    // Period",
+            "",
+            "//--- indicator buffers",
+            "double         ${5:PlotName}Buffer[];",
+            "",
+            "//+------------------------------------------------------------------+",
+            "//| Custom indicator initialization function                         |",
+            "//+------------------------------------------------------------------+",
+            "int OnInit()",
+            "{",
+            "   //--- indicator buffers mapping",
+            "   SetIndexBuffer(0, ${5:PlotName}Buffer, INDICATOR_DATA);",
+            "   ",
+            "   //--- set indicator parameters",
+            "   IndicatorSetString(INDICATOR_SHORTNAME, \"${1:IndicatorName}(${6:Period})\");",
+            "   IndicatorSetInteger(INDICATOR_DIGITS, _Digits);",
+            "   ",
+            "   return(INIT_SUCCEEDED);",
+            "}",
+            "",
+            "//+------------------------------------------------------------------+",
+            "//| Custom indicator iteration function                              |",
+            "//+------------------------------------------------------------------+",
+            "int OnCalculate(const int rates_total,",
+            "                const int prev_calculated,",
+            "                const datetime &time[],",
+            "                const double &open[],",
+            "                const double &high[],",
+            "                const double &low[],",
+            "                const double &close[],",
+            "                const long &tick_volume[],",
+            "                const long &volume[],",
+            "                const int &spread[])",
+            "{",
+            "   //--- calculation logic here",
+            "   ${7:// Add your calculation logic}",
+            "   ",
+            "   return(rates_total);",
+            "}",
+            "$0"
+        ],
+        "description": "Custom indicator template with basic structure"
+    },
+    "Order Send": {
+        "prefix": "ordersend",
+        "body": [
+            "int ticket = OrderSend(",
+            "   ${1:Symbol()},        // symbol",
+            "   ${2:OP_BUY},          // operation type",
+            "   ${3:0.1},             // lot size",
+            "   ${4:Ask},             // price",
+            "   ${5:3},               // slippage",
+            "   ${6:0},               // stop loss",
+            "   ${7:0},               // take profit",
+            "   \"${8:Comment}\",       // comment",
+            "   ${9:0},               // magic number",
+            "   ${10:0},              // expiration",
+            "   ${11:clrNONE}         // arrow color",
+            ");",
+            "",
+            "if(ticket < 0)",
+            "{",
+            "   Print(\"OrderSend failed with error #\", GetLastError());",
+            "}",
+            "else",
+            "{",
+            "   Print(\"Order opened successfully. Ticket: \", ticket);",
+            "}"
+        ],
+        "description": "OrderSend function with error handling"
+    },
+    "Order Close": {
+        "prefix": "orderclose",
+        "body": [
+            "bool result = OrderClose(",
+            "   ${1:ticket},         // ticket",
+            "   ${2:OrderLots()},    // lots",
+            "   ${3:Bid},            // close price",
+            "   ${4:3},              // slippage",
+            "   ${5:clrNONE}         // arrow color",
+            ");",
+            "",
+            "if(!result)",
+            "{",
+            "   Print(\"OrderClose failed with error #\", GetLastError());",
+            "}",
+            "else",
+            "{",
+            "   Print(\"Order closed successfully\");",
+            "}"
+        ],
+        "description": "OrderClose function with error handling"
+    },
+    "For Loop Orders": {
+        "prefix": "for-orders",
+        "body": [
+            "for(int i = OrdersTotal() - 1; i >= 0; i--)",
+            "{",
+            "   if(OrderSelect(i, SELECT_BY_POS, MODE_TRADES))",
+            "   {",
+            "      if(OrderSymbol() == Symbol() && OrderMagicNumber() == ${1:MagicNumber})",
+            "      {",
+            "         ${2:// Process order}",
+            "      }",
+            "   }",
+            "}"
+        ],
+        "description": "Loop through open orders"
+    },
+    "For Loop History": {
+        "prefix": "for-history",
+        "body": [
+            "for(int i = OrdersHistoryTotal() - 1; i >= 0; i--)",
+            "{",
+            "   if(OrderSelect(i, SELECT_BY_POS, MODE_HISTORY))",
+            "   {",
+            "      if(OrderSymbol() == Symbol() && OrderMagicNumber() == ${1:MagicNumber})",
+            "      {",
+            "         ${2:// Process historical order}",
+            "      }",
+            "   }",
+            "}"
+        ],
+        "description": "Loop through order history"
+    },
+    "Moving Average": {
+        "prefix": "ima",
+        "body": [
+            "double ma = iMA(",
+            "   ${1:Symbol()},       // symbol",
+            "   ${2:PERIOD_CURRENT}, // timeframe",
+            "   ${3:14},             // period",
+            "   ${4:0},              // shift",
+            "   ${5:MODE_SMA},       // method",
+            "   ${6:PRICE_CLOSE},    // applied price",
+            "   ${7:0}               // bar index",
+            ");"
+        ],
+        "description": "iMA function call"
+    },
+    "RSI Indicator": {
+        "prefix": "irsi",
+        "body": [
+            "double rsi = iRSI(",
+            "   ${1:Symbol()},       // symbol",
+            "   ${2:PERIOD_CURRENT}, // timeframe",
+            "   ${3:14},             // period",
+            "   ${4:PRICE_CLOSE},    // applied price",
+            "   ${5:0}               // bar index",
+            ");"
+        ],
+        "description": "iRSI function call"
+    },
+    "MACD Indicator": {
+        "prefix": "imacd",
+        "body": [
+            "double macd = iMACD(",
+            "   ${1:Symbol()},       // symbol",
+            "   ${2:PERIOD_CURRENT}, // timeframe",
+            "   ${3:12},             // fast EMA period",
+            "   ${4:26},             // slow EMA period",
+            "   ${5:9},              // signal period",
+            "   ${6:PRICE_CLOSE},    // applied price",
+            "   ${7:MODE_MAIN},      // line index",
+            "   ${8:0}               // bar index",
+            ");"
+        ],
+        "description": "iMACD function call"
+    },
+    "Bollinger Bands": {
+        "prefix": "ibands",
+        "body": [
+            "double bb = iBands(",
+            "   ${1:Symbol()},       // symbol",
+            "   ${2:PERIOD_CURRENT}, // timeframe",
+            "   ${3:20},             // period",
+            "   ${4:2},              // deviation",
+            "   ${5:0},              // bands shift",
+            "   ${6:PRICE_CLOSE},    // applied price",
+            "   ${7:MODE_MAIN},      // line index",
+            "   ${8:0}               // bar index",
+            ");"
+        ],
+        "description": "iBands function call"
+    },
+    "Market Info": {
+        "prefix": "marketinfo",
+        "body": [
+            "double ${1:value} = MarketInfo(",
+            "   ${2:Symbol()},       // symbol",
+            "   ${3:MODE_BID}        // type",
+            ");"
+        ],
+        "description": "MarketInfo function call"
+    },
+    "Account Info": {
+        "prefix": "account",
+        "body": [
+            "double balance = AccountBalance();",
+            "double equity = AccountEquity();",
+            "double freeMargin = AccountFreeMargin();",
+            "double margin = AccountMargin();",
+            "double profit = AccountProfit();",
+            "int leverage = AccountLeverage();",
+            "string currency = AccountCurrency();",
+            "string company = AccountCompany();",
+            "string name = AccountName();",
+            "int number = AccountNumber();"
+        ],
+        "description": "Account information functions"
+    },
+    "Error Handling": {
+        "prefix": "error-check",
+        "body": [
+            "int error = GetLastError();",
+            "if(error != 0)",
+            "{",
+            "   Print(\"Error occurred: \", error, \" - \", ErrorDescription(error));",
+            "   ResetLastError();",
+            "   ${1:// Handle error}",
+            "}"
+        ],
+        "description": "Error checking and handling"
+    },
+    "Print Debug": {
+        "prefix": "print",
+        "body": ["Print(\"${1:Debug message}: \", ${2:variable});"],
+        "description": "Print debug message"
+    },
+    "Alert Message": {
+        "prefix": "alert",
+        "body": ["Alert(\"${1:Alert message}: \", ${2:variable});"],
+        "description": "Alert message"
+    },
+    "Comment Display": {
+        "prefix": "comment",
+        "body": ["Comment(\"${1:Comment text}: \", ${2:variable});"],
+        "description": "Display comment on chart"
+    },
+    "Function Definition": {
+        "prefix": "function",
+        "body": [
+            "${1:double} ${2:FunctionName}(${3:parameters})",
+            "{",
+            "   ${4:// Function body}",
+            "   return ${5:value};",
+            "}"
+        ],
+        "description": "Function definition template"
+    },
+    "If Statement": {
+        "prefix": "if",
+        "body": ["if(${1:condition})", "{", "   ${2:// Code block}", "}"],
+        "description": "If statement"
+    },
+    "If Else Statement": {
+        "prefix": "ifelse",
+        "body": ["if(${1:condition})", "{", "   ${2:// If block}", "}", "else", "{", "   ${3:// Else block}", "}"],
+        "description": "If-else statement"
+    },
+    "For Loop": {
+        "prefix": "for",
+        "body": ["for(int ${1:i} = ${2:0}; ${1:i} < ${3:limit}; ${1:i}++)", "{", "   ${4:// Loop body}", "}"],
+        "description": "For loop"
+    },
+    "While Loop": {
+        "prefix": "while",
+        "body": ["while(${1:condition})", "{", "   ${2:// Loop body}", "}"],
+        "description": "While loop"
+    },
+    "Switch Statement": {
+        "prefix": "switch",
+        "body": [
+            "switch(${1:variable})",
+            "{",
+            "   case ${2:value1}:",
+            "      ${3:// Case 1}",
+            "      break;",
+            "   case ${4:value2}:",
+            "      ${5:// Case 2}",
+            "      break;",
+            "   default:",
+            "      ${6:// Default case}",
+            "      break;",
+            "}"
+        ],
+        "description": "Switch statement"
+    },
+    "Array Declaration": {
+        "prefix": "array",
+        "body": ["${1:double} ${2:arrayName}[${3:size}];"],
+        "description": "Array declaration"
+    },
+    "Dynamic Array": {
+        "prefix": "dynamic-array",
+        "body": ["${1:double} ${2:arrayName}[];", "ArrayResize(${2:arrayName}, ${3:size});"],
+        "description": "Dynamic array declaration and resize"
+    },
+    "String Operations": {
+        "prefix": "string-ops",
+        "body": [
+            "string ${1:str} = \"${2:text}\";",
+            "int length = StringLen(${1:str});",
+            "string substr = StringSubstr(${1:str}, ${3:start}, ${4:length});",
+            "int pos = StringFind(${1:str}, \"${5:search}\");"
+        ],
+        "description": "Common string operations"
+    },
+    "Time Functions": {
+        "prefix": "time-funcs",
+        "body": [
+            "datetime currentTime = TimeCurrent();",
+            "datetime localTime = TimeLocal();",
+            "datetime gmtTime = TimeGMT();",
+            "int hour = TimeHour(currentTime);",
+            "int minute = TimeMinute(currentTime);",
+            "int dayOfWeek = TimeDayOfWeek(currentTime);"
+        ],
+        "description": "Time-related functions"
+    }
+}

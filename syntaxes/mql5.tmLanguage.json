@@ -1,0 +1,370 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "MQL5",
+  "scopeName": "source.mql5",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#preprocessor"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#numbers"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#types"
+    },
+    {
+      "include": "#event_handlers"
+    },
+    {
+      "include": "#trading_functions"
+    },
+    {
+      "include": "#technical_indicators"
+    },
+    {
+      "include": "#market_functions"
+    },
+    {
+      "include": "#utility_functions"
+    },
+    {
+      "include": "#functions"
+    },
+    {
+      "include": "#trading_constants"
+    },
+    {
+      "include": "#market_constants"
+    },
+    {
+      "include": "#timeframe_constants"
+    },
+    {
+      "include": "#price_constants"
+    },
+    {
+      "include": "#indicator_constants"
+    },
+    {
+      "include": "#color_constants"
+    },
+    {
+      "include": "#draw_constants"
+    },
+    {
+      "include": "#style_constants"
+    },
+    {
+      "include": "#object_constants"
+    },
+    {
+      "include": "#constants"
+    },
+    {
+      "include": "#operators"
+    },
+    {
+      "include": "#variables"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.mql5",
+          "begin": "//",
+          "end": "$"
+        },
+        {
+          "name": "comment.block.mql5",
+          "begin": "/\\*",
+          "end": "\\*/"
+        }
+      ]
+    },
+    "preprocessor": {
+      "patterns": [
+        {
+          "name": "meta.preprocessor.mql5",
+          "begin": "^\\s*#",
+          "end": "$",
+          "patterns": [
+            {
+              "name": "keyword.control.directive.mql5",
+              "match": "\\b(property|include|import|define|ifdef|ifndef|endif|else|elif|undef|pragma|warning|error)\\b"
+            },
+            {
+              "name": "string.quoted.double.include.mql5",
+              "begin": "<",
+              "end": ">"
+            },
+            {
+              "name": "string.quoted.double.include.mql5",
+              "begin": "\"",
+              "end": "\""
+            }
+          ]
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.mql5",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.mql5",
+              "match": "\\\\."
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.mql5",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            {
+              "name": "constant.character.escape.mql5",
+              "match": "\\\\."
+            }
+          ]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.hex.mql5",
+          "match": "\\b0[xX][0-9a-fA-F]+\\b"
+        },
+        {
+          "name": "constant.numeric.decimal.mql5",
+          "match": "\\b\\d+\\.\\d+([eE][+-]?\\d+)?\\b"
+        },
+        {
+          "name": "constant.numeric.integer.mql5",
+          "match": "\\b\\d+\\b"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.mql5",
+          "match": "\\b(if|else|switch|case|default|for|while|do|break|continue|return|goto|try|catch|throw)\\b"
+        },
+        {
+          "name": "keyword.operator.logical.mql5",
+          "match": "\\b(and|or|not)\\b"
+        },
+        {
+          "name": "storage.modifier.mql5",
+          "match": "\\b(const|extern|static|virtual|override|final|public|private|protected|abstract|sealed)\\b"
+        },
+        {
+          "name": "storage.type.modifier.mql5",
+          "match": "\\b(input|sinput|group)\\b"
+        },
+        {
+          "name": "keyword.other.mql5",
+          "match": "\\b(template|typename|this|new|delete|sizeof|operator|namespace|using|typedef|explicit|inline|friend|mutable|volatile|register|auto)\\b"
+        }
+      ]
+    },
+    "types": {
+      "patterns": [
+        {
+          "name": "storage.type.primitive.mql5",
+          "match": "\\b(void|bool|char|uchar|short|ushort|int|uint|long|ulong|float|double|string|datetime|color|MqlTick|MqlRates|MqlBookInfo|MqlTradeRequest|MqlTradeResult|MqlTradeCheckResult|MqlParam|MqlDateTime|MqlCalendarValue|MqlCalendarEvent|MqlCalendarCountry)\\b"
+        },
+        {
+          "name": "storage.type.user.mql5",
+          "match": "\\b(enum|struct|class|union|interface)\\b"
+        }
+      ]
+    },
+    "event_handlers": {
+      "patterns": [
+        {
+          "name": "entity.name.function.event.mql5",
+          "match": "\\b(OnInit|OnDeinit|OnTick|OnStart|OnTimer|OnTrade|OnTradeTransaction|OnTester|OnTesterInit|OnTesterPass|OnTesterDeinit|OnChartEvent|OnCalculate|OnBookEvent|OnLastError)\\b"
+        }
+      ]
+    },
+    "trading_functions": {
+      "patterns": [
+        {
+          "name": "support.function.trading.mql5",
+          "match": "\\b(OrderSend|OrderSendAsync|OrderCheck|OrderCalcMargin|OrderCalcProfit|PositionSelect|PositionSelectByTicket|PositionsTotal|PositionGetTicket|PositionGetDouble|PositionGetInteger|PositionGetString|PositionGetSymbol|DealSelect|DealsTotal|DealGetTicket|DealGetDouble|DealGetInteger|DealGetString|HistorySelect|HistorySelectByPosition|HistoryOrderSelect|HistoryOrdersTotal|HistoryOrderGetTicket|HistoryOrderGetDouble|HistoryOrderGetInteger|HistoryOrderGetString|HistoryDealSelect|HistoryDealsTotal|HistoryDealGetTicket|HistoryDealGetDouble|HistoryDealGetInteger|HistoryDealGetString)\\b"
+        }
+      ]
+    },
+    "technical_indicators": {
+      "patterns": [
+        {
+          "name": "support.function.indicator.mql5",
+          "match": "\\b(iMA|iAC|iAD|iADX|iADXWilder|iAlligator|iAMA|iAO|iATR|iBearsPower|iBands|iBullsPower|iCCI|iChaikin|iDEMA|iDeMarker|iEnvelopes|iForce|iFractals|iGator|iIchimoku|iBWMFI|iMomentum|iMFI|iMACD|iOBV|iOsMA|iRSI|iRVI|iSAR|iStdDev|iStochastic|iTEMA|iTriX|iWPR|iVIDyA|iVolumes|iCustom|iBars|iBarShift|iClose|iHigh|iLow|iOpen|iTime|iTickVolume|iRealVolume|iSpread|iHighest|iLowest|CopyRates|CopyTime|CopyOpen|CopyHigh|CopyLow|CopyClose|CopyTickVolume|CopyRealVolume|CopySpread|CopyTicks|CopyTicksRange|Bars|BarsCalculated|CopyBuffer|IndicatorCreate|IndicatorRelease|IndicatorParameters)\\b"
+        }
+      ]
+    },
+    "market_functions": {
+      "patterns": [
+        {
+          "name": "support.function.market.mql5",
+          "match": "\\b(SymbolSelect|SymbolIsSynchronized|SymbolInfoDouble|SymbolInfoInteger|SymbolInfoString|SymbolInfoTick|SymbolInfoSessionQuote|SymbolInfoSessionTrade|MarketBookAdd|MarketBookRelease|MarketBookGet|Symbol|Period|Point|Digits)\\b"
+        }
+      ]
+    },
+    "utility_functions": {
+      "patterns": [
+        {
+          "name": "support.function.utility.mql5",
+          "match": "\\b(Print|PrintFormat|Alert|Comment|SendMail|SendNotification|SendFTP|PlaySound|MessageBox|GetLastError|ResetLastError|IsConnected|IsDemo|IsDllsAllowed|IsExpertEnabled|IsLibrariesAllowed|IsOptimization|IsStopped|IsTradeAllowed|IsTradeContextBusy|IsVisualMode|UninitializeReason|MQLInfoInteger|MQLInfoString|TerminalInfoInteger|TerminalInfoDouble|TerminalInfoString|AccountInfoDouble|AccountInfoInteger|AccountInfoString|TimeCurrent|TimeTradeServer|TimeLocal|TimeGMT|TimeDaylightSavings|TimeToStruct|StructToTime|Minute|Hour|Day|DayOfWeek|DayOfYear|Month|Year|TimeToString|StringToTime|NormalizeDouble|DoubleToString|StringToDouble|IntegerToString|StringToInteger|ShortToString|StringToShort|CharToString|StringToChar|BoolToString|StringToBool|EnumToString|StringToEnum|StringLen|StringSubstr|StringFind|StringReplace|StringTrimLeft|StringTrimRight|StringToLower|StringToUpper|StringConcatenate|StringCompare|StringGetCharacter|StringSetCharacter|StringSplit|StringFormat|ArraySize|ArrayResize|ArrayCopy|ArrayFree|ArrayFill|ArrayInitialize|ArrayPrint|ArraySort|ArrayBsearch|ArrayMaximum|ArrayMinimum|ArrayRange|ArraySetAsSeries|ArrayIsSeries|ArrayGetAsSeries|ArrayDimension|ArraySwap|ArrayCompare|ArrayInsert|ArrayRemove|ArrayReverse|GlobalVariableCheck|GlobalVariableTime|GlobalVariableDel|GlobalVariableGet|GlobalVariableName|GlobalVariableSet|GlobalVariableSetOnCondition|GlobalVariablesDeleteAll|GlobalVariablesTotal|GlobalVariableTemp|GlobalVariablesFlush|HideTestIndicators|IndicatorSetDouble|IndicatorSetInteger|IndicatorSetString|PlotIndexSetDouble|PlotIndexSetInteger|PlotIndexSetString|PlotIndexGetInteger|ObjectCreate|ObjectName|ObjectDelete|ObjectsDeleteAll|ObjectFind|ObjectGetTimeByValue|ObjectGetValueByTime|ObjectMove|ObjectsTotal|ObjectGetDouble|ObjectGetInteger|ObjectGetString|ObjectSetDouble|ObjectSetInteger|ObjectSetString|TextSetFont|TextOut|TextGetSize|ResourceCreate|ResourceFree|ResourceReadImage|ResourceSave|ChartOpen|ChartFirst|ChartNext|ChartClose|ChartSymbol|ChartPeriod|ChartSetDouble|ChartSetInteger|ChartSetString|ChartGetDouble|ChartGetInteger|ChartGetString|ChartNavigate|ChartID|ChartIndicatorAdd|ChartIndicatorDelete|ChartIndicatorGet|ChartIndicatorName|ChartIndicatorsTotal|ChartWindowOnDropped|ChartPriceOnDropped|ChartTimeOnDropped|ChartXOnDropped|ChartYOnDropped|ChartSetSymbolPeriod|ChartScreenShot|WindowBarsPerChart|WindowExpertName|WindowFind|WindowFirstVisibleBar|WindowHandle|WindowIsVisible|WindowOnDropped|WindowPriceMax|WindowPriceMin|WindowPriceOnDropped|WindowRedraw|WindowScreenShot|WindowTimeOnDropped|WindowsTotal|WindowXOnDropped|WindowYOnDropped|EventSetMillisecondTimer|EventSetTimer|EventKillTimer|EventChartCustom|FileOpen|FileClose|FileWrite|FileWriteInteger|FileWriteFloat|FileWriteDouble|FileWriteString|FileWriteArray|FileWriteStruct|FileRead|FileReadInteger|FileReadFloat|FileReadDouble|FileReadString|FileReadBool|FileReadDatetime|FileReadArray|FileReadStruct|FileSeek|FileTell|FileFlush|FileIsExist|FileIsLineEnding|FileIsEnding|FileSize|FileFindFirst|FileFindNext|FileFindClose|FileGetInteger|FolderCreate|FolderDelete|FolderClean|WebRequest|CryptEncode|CryptDecode|MathAbs|MathArccos|MathArcsin|MathArctan|MathCeil|MathCos|MathExp|MathFloor|MathLog|MathLog10|MathMax|MathMin|MathMod|MathPow|MathRand|MathRound|MathSin|MathSqrt|MathSrand|MathTan|MathArctan2|MathExpm1|MathLog1p|MathSwap|ZeroMemory)\\b"
+        }
+      ]
+    },
+    "functions": {
+      "patterns": [
+        {
+          "name": "entity.name.function.mql5",
+          "match": "\\b[a-zA-Z_][a-zA-Z0-9_]*(?=\\s*\\()"
+        }
+      ]
+    },
+    "trading_constants": {
+      "patterns": [
+        {
+          "name": "constant.trading.mql5",
+          "match": "\\b(ORDER_TYPE_BUY|ORDER_TYPE_SELL|ORDER_TYPE_BUY_LIMIT|ORDER_TYPE_SELL_LIMIT|ORDER_TYPE_BUY_STOP|ORDER_TYPE_SELL_STOP|ORDER_TYPE_BUY_STOP_LIMIT|ORDER_TYPE_SELL_STOP_LIMIT|ORDER_TYPE_CLOSE_BY|ORDER_STATE_STARTED|ORDER_STATE_PLACED|ORDER_STATE_CANCELED|ORDER_STATE_PARTIAL|ORDER_STATE_FILLED|ORDER_STATE_REJECTED|ORDER_STATE_EXPIRED|ORDER_STATE_REQUEST_ADD|ORDER_STATE_REQUEST_MODIFY|ORDER_STATE_REQUEST_CANCEL|ORDER_FILLING_FOK|ORDER_FILLING_IOC|ORDER_FILLING_RETURN|ORDER_TIME_GTC|ORDER_TIME_DAY|ORDER_TIME_SPECIFIED|ORDER_TIME_SPECIFIED_DAY|POSITION_TYPE_BUY|POSITION_TYPE_SELL|DEAL_TYPE_BUY|DEAL_TYPE_SELL|DEAL_TYPE_BALANCE|DEAL_TYPE_CREDIT|DEAL_TYPE_CHARGE|DEAL_TYPE_CORRECTION|DEAL_TYPE_BONUS|DEAL_TYPE_COMMISSION|DEAL_TYPE_COMMISSION_DAILY|DEAL_TYPE_COMMISSION_MONTHLY|DEAL_TYPE_COMMISSION_AGENT_DAILY|DEAL_TYPE_COMMISSION_AGENT_MONTHLY|DEAL_TYPE_INTEREST|DEAL_TYPE_BUY_CANCELED|DEAL_TYPE_SELL_CANCELED|DEAL_ENTRY_IN|DEAL_ENTRY_OUT|DEAL_ENTRY_INOUT|DEAL_ENTRY_OUT_BY|DEAL_REASON_CLIENT|DEAL_REASON_MOBILE|DEAL_REASON_WEB|DEAL_REASON_EXPERT|DEAL_REASON_SL|DEAL_REASON_TP|DEAL_REASON_SO|DEAL_REASON_ROLLOVER|DEAL_REASON_VMARGIN|DEAL_REASON_SPLIT)\\b"
+        }
+      ]
+    },
+    "market_constants": {
+      "patterns": [
+        {
+          "name": "constant.market.mql5",
+          "match": "\\b(SYMBOL_SELECT|SYMBOL_VISIBLE|SYMBOL_SESSION_DEALS|SYMBOL_SESSION_BUY_ORDERS|SYMBOL_SESSION_SELL_ORDERS|SYMBOL_VOLUME|SYMBOL_VOLUMEHIGH|SYMBOL_VOLUMELOW|SYMBOL_TIME|SYMBOL_DIGITS|SYMBOL_SPREAD_FLOAT|SYMBOL_SPREAD|SYMBOL_TICKS_BOOKDEPTH|SYMBOL_CALC_MODE|SYMBOL_CALC_MODE_FOREX|SYMBOL_CALC_MODE_FUTURES|SYMBOL_CALC_MODE_CFD|SYMBOL_CALC_MODE_CFDINDEX|SYMBOL_CALC_MODE_CFDLEVERAGE|SYMBOL_CALC_MODE_EXCH_STOCKS|SYMBOL_CALC_MODE_EXCH_FUTURES|SYMBOL_CALC_MODE_EXCH_OPTIONS|SYMBOL_CALC_MODE_EXCH_OPTIONS_MARGIN|SYMBOL_CALC_MODE_EXCH_BONDS|SYMBOL_CALC_MODE_EXCH_STOCKS_MOEX|SYMBOL_CALC_MODE_EXCH_BONDS_MOEX|SYMBOL_CALC_MODE_SERV_COLLATERAL|SYMBOL_TRADE_MODE|SYMBOL_TRADE_MODE_DISABLED|SYMBOL_TRADE_MODE_LONGONLY|SYMBOL_TRADE_MODE_SHORTONLY|SYMBOL_TRADE_MODE_CLOSEONLY|SYMBOL_TRADE_MODE_FULL|SYMBOL_TRADE_EXECUTION|SYMBOL_TRADE_EXECUTION_REQUEST|SYMBOL_TRADE_EXECUTION_INSTANT|SYMBOL_TRADE_EXECUTION_MARKET|SYMBOL_TRADE_EXECUTION_EXCHANGE|SYMBOL_SWAP_MODE|SYMBOL_SWAP_MODE_DISABLED|SYMBOL_SWAP_MODE_POINTS|SYMBOL_SWAP_MODE_CURRENCY_SYMBOL|SYMBOL_SWAP_MODE_CURRENCY_MARGIN|SYMBOL_SWAP_MODE_CURRENCY_DEPOSIT|SYMBOL_SWAP_MODE_INTEREST_CURRENT|SYMBOL_SWAP_MODE_INTEREST_OPEN|SYMBOL_SWAP_MODE_REOPEN_CURRENT|SYMBOL_SWAP_MODE_REOPEN_BID)\\b"
+        }
+      ]
+    },
+    "timeframe_constants": {
+      "patterns": [
+        {
+          "name": "constant.timeframe.mql5",
+          "match": "\\b(PERIOD_CURRENT|PERIOD_M1|PERIOD_M2|PERIOD_M3|PERIOD_M4|PERIOD_M5|PERIOD_M6|PERIOD_M10|PERIOD_M12|PERIOD_M15|PERIOD_M20|PERIOD_M30|PERIOD_H1|PERIOD_H2|PERIOD_H3|PERIOD_H4|PERIOD_H6|PERIOD_H8|PERIOD_H12|PERIOD_D1|PERIOD_W1|PERIOD_MN1)\\b"
+        }
+      ]
+    },
+    "price_constants": {
+      "patterns": [
+        {
+          "name": "constant.price.mql5",
+          "match": "\\b(PRICE_CLOSE|PRICE_OPEN|PRICE_HIGH|PRICE_LOW|PRICE_MEDIAN|PRICE_TYPICAL|PRICE_WEIGHTED|PRICE_BID|PRICE_ASK)\\b"
+        }
+      ]
+    },
+    "indicator_constants": {
+      "patterns": [
+        {
+          "name": "constant.indicator.mql5",
+          "match": "\\b(MODE_MAIN|MODE_SIGNAL|MODE_PLUSDI|MODE_MINUSDI|MODE_UPPER|MODE_LOWER|MODE_GATORJAW|MODE_GATORTEETH|MODE_GATORLIPS|MODE_TENKANSEN|MODE_KIJUNSEN|MODE_SENKOUSPANA|MODE_SENKOUSPANB|MODE_CHIKOUSPAN|SMA|EMA|SMMA|LWMA|VOLUME_TICK|VOLUME_REAL)\\b"
+        }
+      ]
+    },
+    "color_constants": {
+      "patterns": [
+        {
+          "name": "constant.color.mql5",
+          "match": "\\b(clrNONE|clrAliceBlue|clrAntiqueWhite|clrAqua|clrAquamarine|clrBeige|clrBisque|clrBlack|clrBlanchedAlmond|clrBlue|clrBlueViolet|clrBrown|clrBurlyWood|clrCadetBlue|clrChartreuse|clrChocolate|clrCoral|clrCornflowerBlue|clrCornsilk|clrCrimson|clrDarkBlue|clrDarkGoldenrod|clrDarkGray|clrDarkGreen|clrDarkKhaki|clrDarkOliveGreen|clrDarkOrange|clrDarkOrchid|clrDarkSalmon|clrDarkSeaGreen|clrDarkSlateBlue|clrDarkSlateGray|clrDarkTurquoise|clrDarkViolet|clrDeepPink|clrDeepSkyBlue|clrDimGray|clrDodgerBlue|clrFireBrick|clrForestGreen|clrGold|clrGoldenrod|clrGray|clrGreen|clrGreenYellow|clrHoneydew|clrHotPink|clrIndianRed|clrIndigo|clrKhaki|clrLavender|clrLawnGreen|clrLemonChiffon|clrLightBlue|clrLightCoral|clrLightCyan|clrLightGoldenrod|clrLightGray|clrLightGreen|clrLightPink|clrLightSalmon|clrLightSeaGreen|clrLightSkyBlue|clrLightSlateGray|clrLightSteelBlue|clrLightYellow|clrLime|clrLimeGreen|clrLinen|clrMagenta|clrMaroon|clrMediumAquamarine|clrMediumBlue|clrMediumOrchid|clrMediumPurple|clrMediumSeaGreen|clrMediumSlateBlue|clrMediumSpringGreen|clrMediumTurquoise|clrMediumVioletRed|clrMidnightBlue|clrMintCream|clrMistyRose|clrMoccasin|clrNavajoWhite|clrNavy|clrOldLace|clrOlive|clrOliveDrab|clrOrange|clrOrangeRed|clrOrchid|clrPaleGoldenrod|clrPaleGreen|clrPaleTurquoise|clrPaleVioletRed|clrPapayaWhip|clrPeachPuff|clrPeru|clrPink|clrPlum|clrPowderBlue|clrPurple|clrRed|clrRosyBrown|clrRoyalBlue|clrSaddleBrown|clrSalmon|clrSandyBrown|clrSeaGreen|clrSeashell|clrSienna|clrSilver|clrSkyBlue|clrSlateBlue|clrSlateGray|clrSnow|clrSpringGreen|clrSteelBlue|clrTan|clrTeal|clrThistle|clrTomato|clrTurquoise|clrViolet|clrWheat|clrWhite|clrWhiteSmoke|clrYellow|clrYellowGreen)\\b"
+        }
+      ]
+    },
+    "draw_constants": {
+      "patterns": [
+        {
+          "name": "constant.draw.mql5",
+          "match": "\\b(DRAW_NONE|DRAW_LINE|DRAW_SECTION|DRAW_HISTOGRAM|DRAW_HISTOGRAM2|DRAW_ARROW|DRAW_ZIGZAG|DRAW_FILLING|DRAW_BARS|DRAW_CANDLES|DRAW_COLOR_LINE|DRAW_COLOR_SECTION|DRAW_COLOR_HISTOGRAM|DRAW_COLOR_HISTOGRAM2|DRAW_COLOR_ARROW|DRAW_COLOR_ZIGZAG|DRAW_COLOR_BARS|DRAW_COLOR_CANDLES)\\b"
+        }
+      ]
+    },
+    "style_constants": {
+      "patterns": [
+        {
+          "name": "constant.style.mql5",
+          "match": "\\b(STYLE_SOLID|STYLE_DASH|STYLE_DOT|STYLE_DASHDOT|STYLE_DASHDOTDOT)\\b"
+        }
+      ]
+    },
+    "object_constants": {
+      "patterns": [
+        {
+          "name": "constant.object.mql5",
+          "match": "\\b(OBJ_VLINE|OBJ_HLINE|OBJ_TREND|OBJ_TRENDBYANGLE|OBJ_CYCLES|OBJ_CHANNEL|OBJ_STDDEVCHANNEL|OBJ_REGRESSION|OBJ_PITCHFORK|OBJ_GANNLINE|OBJ_GANNFAN|OBJ_GANNGRID|OBJ_FIBO|OBJ_FIBOTIMES|OBJ_FIBOFAN|OBJ_FIBOARC|OBJ_EXPANSION|OBJ_FIBOCHANNEL|OBJ_RECTANGLE|OBJ_TRIANGLE|OBJ_ELLIPSE|OBJ_ARROW_THUMB_UP|OBJ_ARROW_THUMB_DOWN|OBJ_ARROW_UP|OBJ_ARROW_DOWN|OBJ_ARROW_STOP|OBJ_ARROW_CHECK|OBJ_ARROW_LEFT_PRICE|OBJ_ARROW_RIGHT_PRICE|OBJ_ARROW_BUY|OBJ_ARROW_SELL|OBJ_ARROW|OBJ_TEXT|OBJ_LABEL|OBJ_BUTTON|OBJ_CHART|OBJ_BITMAP|OBJ_BITMAP_LABEL|OBJ_EDIT|OBJ_EVENT|OBJ_RECTANGLE_LABEL)\\b"
+        }
+      ]
+    },
+    "constants": {
+      "patterns": [
+        {
+          "name": "constant.language.mql5",
+          "match": "\\b(true|false|NULL|EMPTY|EMPTY_VALUE|INVALID_HANDLE|WHOLE_ARRAY)\\b"
+        },
+        {
+          "name": "constant.numeric.mql5",
+          "match": "\\b[A-Z_][A-Z0-9_]*\\b"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.assignment.mql5",
+          "match": "(=|\\+=|-=|\\*=|/=|%=|&=|\\|=|\\^=|<<=|>>=)"
+        },
+        {
+          "name": "keyword.operator.comparison.mql5",
+          "match": "(==|!=|<|<=|>|>=)"
+        },
+        {
+          "name": "keyword.operator.logical.mql5",
+          "match": "(&&|\\|\\||!)"
+        },
+        {
+          "name": "keyword.operator.arithmetic.mql5",
+          "match": "(\\+|-|\\*|/|%|\\+\\+|--)"
+        },
+        {
+          "name": "keyword.operator.bitwise.mql5",
+          "match": "(&|\\||\\^|~|<<|>>)"
+        },
+        {
+          "name": "keyword.operator.ternary.mql5",
+          "match": "(\\?|:)"
+        },
+        {
+          "name": "keyword.operator.scope.mql5",
+          "match": "::"
+        }
+      ]
+    },
+    "variables": {
+      "patterns": [
+        {
+          "name": "variable.other.mql5",
+          "match": "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b"
+        }
+      ]
+    }
+  }
+}

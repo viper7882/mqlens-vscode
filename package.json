@@ -1,0 +1,225 @@
+{
+  "name": "mqlens",
+  "displayName": "MQLens - MQL Language Support",
+  "description": "🔍 Comprehensive Meta Query Language (MQL) support for VS Code with syntax highlighting, IntelliSense, validation, and debugging capabilities",
+  "version": "0.0.1",
+  "publisher": "viper7882",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/viper7882/mqlens-vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/viper7882/mqlens-vscode"
+  },
+  "homepage": "https://github.com/viper7882/mqlens-vscode#readme",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Linters",
+    "Debuggers",
+    "Formatters"
+  ],
+  "keywords": [
+    "mql",
+    "meta query language",
+    "metatrader",
+    "forex",
+    "trading",
+    "expert advisor",
+    "syntax highlighting",
+    "intellisense",
+    "debugging"
+  ],
+  "icon": "extension/images/icon.png",
+  "galleryBanner": {
+    "color": "#1e1e1e",
+    "theme": "dark"
+  },
+  "activationEvents": [
+    "onLanguage:mql4",
+    "onLanguage:mql5"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "mql4",
+        "aliases": [
+          "MQL4",
+          "mql4"
+        ],
+        "extensions": [
+          ".mq4",
+          ".mqh"
+        ],
+        "configuration": "./language-configuration.json"
+      },
+      {
+        "id": "mql5",
+        "aliases": [
+          "MQL5",
+          "mql5"
+        ],
+        "extensions": [
+          ".mq5",
+          ".mqh"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "mql4",
+        "scopeName": "source.mql4",
+        "path": "./syntaxes/mql4.tmLanguage.json"
+      },
+      {
+        "language": "mql5",
+        "scopeName": "source.mql5",
+        "path": "./syntaxes/mql5.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "mql4",
+        "path": "./snippets/mql4.json"
+      },
+      {
+        "language": "mql5",
+        "path": "./snippets/mql5.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "mqlens.compile",
+        "title": "Compile MQL File",
+        "category": "MQLens"
+      },
+      {
+        "command": "mqlens.format",
+        "title": "Format MQL Code",
+        "category": "MQLens"
+      },
+      {
+        "command": "mqlens.validate",
+        "title": "Validate MQL Syntax",
+        "category": "MQLens"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "mqlens.compile",
+        "key": "ctrl+f7",
+        "when": "editorTextFocus && (resourceExtname == .mq4 || resourceExtname == .mq5)"
+      },
+      {
+        "command": "mqlens.format",
+        "key": "shift+alt+f",
+        "when": "editorTextFocus && (resourceExtname == .mq4 || resourceExtname == .mq5)"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "resourceExtname == .mq4 || resourceExtname == .mq5",
+          "command": "mqlens.compile",
+          "group": "mqlens@1"
+        },
+        {
+          "when": "resourceExtname == .mq4 || resourceExtname == .mq5",
+          "command": "mqlens.format",
+          "group": "mqlens@2"
+        },
+        {
+          "when": "resourceExtname == .mq4 || resourceExtname == .mq5",
+          "command": "mqlens.validate",
+          "group": "mqlens@3"
+        }
+      ]
+    },
+    "configuration": {
+      "type": "object",
+      "title": "MQLens Configuration",
+      "properties": {
+        "mqlens.compiler.path": {
+          "type": "string",
+          "default": "",
+          "description": "Path to MQL compiler executable"
+        },
+        "mqlens.validation.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable real-time syntax validation"
+        },
+        "mqlens.formatting.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable code formatting"
+        },
+        "mqlens.intellisense.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable IntelliSense features"
+        },
+        "mqlens.hover.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable hover information"
+        },
+        "mqlens.completion.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable code completion"
+        },
+        "mqlens.diagnostics.maxProblems": {
+          "type": "number",
+          "default": 100,
+          "description": "Maximum number of problems to report"
+        },
+        "mqlens.formatting.indentSize": {
+          "type": "number",
+          "default": 4,
+          "description": "Number of spaces used for indentation"
+        },
+        "mqlens.formatting.insertSpaces": {
+          "type": "boolean",
+          "default": true,
+          "description": "Insert spaces instead of tabs"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package --out releases/",
+    "publish": "vsce publish",
+    "publish-ovsx": "ovsx publish"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.74.0",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "@vscode/test-electron": "^2.2.0",
+    "eslint": "^8.28.0",
+    "ovsx": "^0.8.3",
+    "typescript": "^4.9.4",
+    "vsce": "^2.15.0"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^8.0.2",
+    "vscode-languageserver": "^8.0.2",
+    "vscode-languageserver-textdocument": "^1.0.8"
+  }
+}
