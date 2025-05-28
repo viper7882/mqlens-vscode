@@ -5,27 +5,6 @@ All notable changes to the "MQLens" extension will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
-
-### Added
-
-- Initial release of MQLens VS Code extension
-- Syntax highlighting for MQL4 and MQL5
-- IntelliSense support with auto-completion
-- Code snippets for common MQL patterns
-- Hover documentation for functions and constants
-- Go to Definition functionality
-- Real-time syntax validation and error detection
-- Code formatting support
-- Document outline and symbol navigation
-- Support for both MQL4 and MQL5 languages
-- Comprehensive language configuration
-- Built-in commands for compilation and validation
-- Extensive function library support
-- Error handling and debugging features
-
-### Features
-
 #### Language Support
 
 - **MQL4**: Complete syntax highlighting and IntelliSense
@@ -102,8 +81,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - VS Code 1.74.0 or higher
 - Node.js 16.x or higher (for development)
 
+## [0.0.2] - 2025-05-28
+
+### Fixed
+
+- Improved variable highlighting to properly distinguish variables from other identifiers
+- Enhanced function parameter highlighting in both MQL4 and MQL5 files
+- Changed variable scope name to 'variable.other' for better semantic highlighting
+- Fixed syntax highlighting issues caused by duplicate function definitions in MQL4 language file
+- Fixed wave highlighting issue in MQL4/MQL5 comment headers by adding specific pattern for header comments
+- Fixed incorrect 'Missing semicolon' diagnostics for lines with comments by properly handling inline comments
+- Fixed incorrect expectation for input group declarations to end with semicolons
+- Fixed incorrect "Undefined variable" warnings for words in comments (copyright, links, version, etc.)
+- Added comprehensive list of MQL keywords and constants to prevent false undefined variable warnings
+- Fixed incorrect 'Missing semicolon' warnings at the end of function declarations
+- Fixed unmatched bracket detection to properly track brackets across multiple lines
+- Fixed improper 'Missing semicolon' warnings for lines ending with logical operators (&&, ||) in multi-line conditions
+
 ## [0.0.1] - 2025-05-24
 
 ### Added
 
 - Initial release. Created using Anthropic's Sonnet 4
+- Initial release of MQLens VS Code extension
+- Syntax highlighting for MQL4 and MQL5
+- IntelliSense support with auto-completion
+- Code snippets for common MQL patterns
+- Hover documentation for functions and constants
+- Go to Definition functionality
+- Real-time syntax validation and error detection
+- Code formatting support
+- Document outline and symbol navigation
+- Support for both MQL4 and MQL5 languages
+- Comprehensive language configuration
+- Built-in commands for compilation and validation
+- Extensive function library support
+- Error handling and debugging features

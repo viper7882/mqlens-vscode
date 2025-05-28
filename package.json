@@ -2,7 +2,7 @@
   "name": "mqlens",
   "displayName": "MQLens - MQL Language Support",
   "description": "🔍 Comprehensive Meta Query Language (MQL) support for VS Code with syntax highlighting, IntelliSense, validation, and debugging capabilities",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "viper7882",
   "license": "MIT",
   "repository": {
